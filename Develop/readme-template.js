@@ -1,7 +1,7 @@
 // TODO: Create a function to generate markdown for README
-function generateMarkdown(data) {
+function generateMarkdown(promptData) {
     return `
-        # ${data.title}
+        # ${promptData.title}
 
         ## Table of Contents
         * Description
@@ -9,32 +9,32 @@ function generateMarkdown(data) {
         * Installation
         * Usage
         * Website/Links
-        * Questions
         * Credits
+        * Questions
         * License
 
         ## Description
-        ${data.description}
+        ${promptData.description}
 
         ## Built With
-        ${data.languages}
+        ${promptData.languages}
 
         ## Installation
-        ${data.installation}
+        ${promptData.installation}
 
         ## Usage
-        ${data.usageInput}
+        ${promptData.usage}
+        ${promptData.usageImage}
 
         ## Website/Links
-        ${data.githubLink}
-        ${data.websiteLink}
-        ${data.websiteImage}
+        ${promptData.githubLink}
+        ${promptData.projectImage}
 
         ## Credits
-        ${data.creditInput}
+        ${promptData.creditName}
 
         ## Questions?
-        If you have any questions, email me at ${data.Email}.
+        If you have any questions, email me at ${promptData.email}.
 `;
 }
 

@@ -2,8 +2,8 @@
 const { read } = require('fs');
 const inquirer = require('inquirer');
 // TODO: Create an array of questions for user input
-const promptUser = promptData => {
-    promptData = [];
+const promptProject = projectData => {
+    projectData = [];
     return inquirer.prompt([{
                 type: 'input',
                 name: 'project-name',
@@ -45,48 +45,13 @@ const promptUser = promptData => {
                 type: 'input',
                 name: 'usage',
                 message: 'Please enter instructions and/or examples for using your project'
-            },
-            {
-                type: 'input',
-                name: 'githubLink',
-                message: 'Please enter the GitHub link for your project. (Required)',
-                validate: githubLinkInput => {
-                    if (githubLinkInput) {
-                        return true;
-                    } else {
-                        console.log('You need to enter the GitHub link to your project!');
-                        return false;
-                    }
-                }
-            },
-            {
-                type: 'input',
-                name: 'projectImage',
-                message: 'Please enter the relative paths of any screenshots of your project that you want to include.'
-            },
-            {
-                type: 'input',
-                name: 'credit',
-                message: 'Please enter the name and link to the GitHub profile of a collaborator, if any.(Enter their name followed by their GitHub link, with a comma between the two ie "John Doe, https://github.com/JDoe")',
-            },
-            {
-                type: 'confirm',
-                name: 'creditConfirm',
-                message: 'Would you like to add another collaborator?',
-                default: false
-            },
-            {
-                type: 'input',
-                name: 'email',
-                message: 'Please enter an email address for people to contact you with questions.'
             }
         ])
         .then(answerData => {
-            promptData.push(answerData);
-            return promptData;
+            projectData.push(answerData);
+            return projectData;
         });
 };
-
 const promptUsage = usageData => {
     usageData = [];
     return inquirer.prompt([{
@@ -110,6 +75,41 @@ const promptUsage = usageData => {
             }
         });
 };
+// {
+//     type: 'input',
+//     name: 'githubLink',
+//     message: 'Please enter the GitHub link for your project. (Required)',
+//     validate: githubLinkInput => {
+//         if (githubLinkInput) {
+//             return true;
+//         } else {
+//             console.log('You need to enter the GitHub link to your project!');
+//             return false;
+//         }
+//     }
+// },
+// {
+//     type: 'input',
+//     name: 'projectImage',
+//     message: 'Please enter the relative paths of any screenshots of your project that you want to include.'
+// },
+// {
+//     type: 'input',
+//     name: 'credit',
+//     message: 'Please enter the name and link to the GitHub profile of a collaborator, if any.(Enter their name followed by their GitHub link, with a comma between the two ie "John Doe, https://github.com/JDoe")',
+// },
+// {
+//     type: 'confirm',
+//     name: 'creditConfirm',
+//     message: 'Would you like to add another collaborator?',
+//     default: false
+// },
+// {
+//     type: 'input',
+//     name: 'email',
+//     message: 'Please enter an email address for people to contact you with questions.'
+// }
+
 
 const promptCredit = creditData => {
     creditData = [];
@@ -119,7 +119,7 @@ const promptCredit = creditData => {
 }
 
 
-promptUser()
+promptProject()
     .then(promptUsage)
     .then(answerData => {
         console.log(answerData)
