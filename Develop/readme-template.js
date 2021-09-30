@@ -1,7 +1,8 @@
 // TODO: Create a function to generate markdown for README
-function generateMarkdown(promptData) {
+// create the project info section
+const generateProjectAbout = userData => {
     return `
-        # ${promptData.title}
+        # ${userData.projectName}
 
         ## Table of Contents
         * Description
@@ -14,28 +15,91 @@ function generateMarkdown(promptData) {
         * License
 
         ## Description
-        ${promptData.description}
+        ${userData.projectDescription}
 
         ## Built With
-        ${promptData.languages}
+        ${userData.languages}
 
         ## Installation
-        ${promptData.installation}
+        ${userData.installation}
 
         ## Usage
-        ${promptData.usage}
-        ${promptData.usageImage}
+    `;
+};
 
-        ## Website/Links
-        ${promptData.githubLink}
-        ${promptData.projectImage}
+// create the usage section
+const generateUsage = usageArray => {
+    return `
+    ${usageArray
+            .map(({ usageImage }) => {
+                return ` <
+        a href = "${usageImage}" > < /a>
+    `;
+            })
+            .join('')}
+    `;
+};
 
-        ## Credits
-        ${promptData.creditName}
+// create the links section
+const generateLinks = userData => {
+    return `
+    ## Website / Links
+    ${userData.githubLink}
+    `;
+};
 
-        ## Questions?
-        If you have any questions, email me at ${promptData.email}.
-`;
-}
+// create the project images section
+const generateScreenshot = screenshotArray => {
+    return `
+    ${screenshotArray
+            .map(({ projectImage }) => {
+                return ` <
+        a href = "${projectImage}" > < /a>
+    `;
+            })
+            .join('')}
+    `;
+};
 
-module.exports = generateMarkdown;
+// create the credits section
+const generateCredits = creditsArr => {
+    if (!confirmAddCollaborator) {
+        return `''`;
+    }
+
+    return `
+    ## Credits
+    ${creditsArr
+            .map(({ creditName, creditGithub }) => {
+                return `
+    $ { creditName }, $ { creditGithub }
+    `;
+            })
+            .join('')}
+    `;
+};
+
+// create the questions section
+const generateQuestions = userData => {
+    return `
+    ## Questions ?
+
+    If you have any questions, email me at ${userData.email}.
+    `
+};
+
+// export function to create README
+module.exports = markdownTemplate => {
+    // organize page data by section
+    const { about, usage, links, screenshots, credits, questions } = markdownTemplate;
+
+    return `
+
+    ${generateProjectAbout(about)}
+    ${generateUsage(usage)}
+    ${generateLinks(links)}
+    ${generateScreenshot(screenshots)}
+    ${generateCredits(credits)}
+    ${generateQuestions(questions)}
+    `;
+};
