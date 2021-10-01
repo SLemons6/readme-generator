@@ -1,8 +1,8 @@
 // TODO: Create a function to generate markdown for README
 // create the project info section
-const generateProjectAbout = userData => {
+const generateProjectAbout = projectData => {
     return `
-        # ${userData.projectName}
+        # ${projectData.projectName}
 
         ## Table of Contents
         * Description
@@ -15,13 +15,13 @@ const generateProjectAbout = userData => {
         * License
 
         ## Description
-        ${userData.projectDescription}
+        ${projectData.projectDescription}
 
         ## Built With
-        ${userData.languages}
+        ${projectData.languages}
 
         ## Installation
-        ${userData.installation}
+        ${projectData.installation}
 
         ## Usage
     `;
@@ -41,10 +41,10 @@ const generateUsage = usageArray => {
 };
 
 // create the links section
-const generateLinks = userData => {
+const generateLinks = githubLink => {
     return `
     ## Website / Links
-    ${userData.githubLink}
+    ${githubLink}
     `;
 };
 
@@ -52,9 +52,10 @@ const generateLinks = userData => {
 const generateScreenshot = screenshotArray => {
     return `
     ${screenshotArray
-            .map(({ projectImage }) => {
+            .map(({ projectImage, projectImageAlt }) => {
                 return ` <
-        a href = "${projectImage}" > < /a>
+        a href = "${projectImage}"
+    "alt=${projectImageAlt}" / >
     `;
             })
             .join('')}
@@ -72,7 +73,7 @@ const generateCredits = creditsArr => {
     ${creditsArr
             .map(({ creditName, creditGithub }) => {
                 return `
-    $ { creditName }, $ { creditGithub }
+    ${creditName}, ${creditGithub}
     `;
             })
             .join('')}
@@ -80,11 +81,11 @@ const generateCredits = creditsArr => {
 };
 
 // create the questions section
-const generateQuestions = userData => {
+const generateQuestions = questionData => {
     return `
     ## Questions ?
 
-    If you have any questions, email me at ${userData.email}.
+    If you have any questions, email me at ${questionData.email}.
     `
 };
 
