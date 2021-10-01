@@ -88,6 +88,8 @@ const generateQuestions = userData => {
     `
 };
 
+// create the license section
+
 // export function to create README
 module.exports = markdownTemplate => {
     // organize page data by section

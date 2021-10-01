@@ -1,11 +1,12 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
+const writeReadme = require('./utils/generateMarkdown');
 // const generateMD = require('./readme-template.js');
-const promptProject = aboutProjectData => {
+const promptProject = () => {
     // Add a 'project' array property if there isn't one already
     return inquirer.prompt([{
             type: 'input',
-            name: 'project-name',
+            name: 'projectName',
             message: 'What is the name of your project? (Required)',
             validate: projectNameInput => {
                 if (projectNameInput) {
@@ -18,7 +19,7 @@ const promptProject = aboutProjectData => {
         },
         {
             type: 'input',
-            name: 'project-description',
+            name: 'projectDescription',
             message: 'Please enter a description of your project. (Required)',
             validate: projectdescInput => {
                 if (projectdescInput) {
@@ -61,7 +62,7 @@ const promptProject = aboutProjectData => {
         {
             type: 'input',
             name: 'usage',
-            message: 'Please enter instructions and/or examples for using your project'
+            message: 'Please enter instructions for using your project'
         }
     ]);
 };
@@ -160,13 +161,29 @@ const promptCredit = creditData => {
         })
 };
 
+const promptLicense = () => {
+    return inquirer.prompt([{
+        type: 'checkbox',
+        name: 'license',
+        message: "What type of open source do you want to include?",
+        choices: ['GNU AGPLv3', 'GUN GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The Unlicense', 'None']
+    }])
+}
+
 
 promptProject()
     .then(promptUsage)
     .then(promptScreenshot)
     .then(promptCredit)
+    .then(promptLicense)
     .then(userData => {
         console.log(userData)
+    })
+    .then(readmeText => {
+        return writeReadme(readmeText);
+    })
+    .catch(err => {
+        console.log(err);
     });
 //     .then(promptData => {
 //         return createPage(promptData);
