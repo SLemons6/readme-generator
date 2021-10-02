@@ -51,14 +51,31 @@ const promptProject = () => {
                 }
             },
             {
+                type: 'recursive',
+                name: 'screenshotPrompt',
+                message: 'Do you have any screenshots to add to your project?',
+                prompts: [{
+                        type: 'input',
+                        name: 'projectScreenshot',
+                        message: 'Please enter the relative paths of any screenshots of your project that you want to include.'
+                    },
+                    {
+                        type: 'confirm',
+                        name: 'confirmProjectAlt',
+                        message: 'Would you like to include alternative text for your image?'
+                    },
+                    {
+                        type: 'input',
+                        name: 'projectImageAlt',
+                        message: 'Please enter the alternative text for your project\'s image.',
+                        when: ({ confirmProjectAlt }) => confirmProjectAlt
+                    },
+                ]
+            },
+            {
                 type: 'editor',
                 name: 'installation',
                 message: 'Please enter a guide describing how to install your project.'
-            },
-            {
-                type: 'input',
-                name: 'email',
-                message: 'Please enter an email address for people to contact you with questions.'
             },
             {
                 type: 'editor',
@@ -90,28 +107,6 @@ const promptProject = () => {
             },
             {
                 type: 'recursive',
-                name: 'screenshotPrompt',
-                message: 'Do you have any screenshots to add to your project?',
-                prompts: [{
-                        type: 'input',
-                        name: 'projectScreenshot',
-                        message: 'Please enter the relative paths of any screenshots of your project that you want to include.'
-                    },
-                    {
-                        type: 'confirm',
-                        name: 'confirmProjectAlt',
-                        message: 'Would you like to include alternative text for your image?'
-                    },
-                    {
-                        type: 'input',
-                        name: 'projectImageAlt',
-                        message: 'Please enter the alternative text for your project\'s image.',
-                        when: ({ confirmProjectAlt }) => confirmProjectAlt
-                    },
-                ]
-            },
-            {
-                type: 'recursive',
                 name: 'collaboratorPrompt',
                 message: 'Do you have any collaborators to add your README?',
                 prompts: [{
@@ -127,6 +122,11 @@ const promptProject = () => {
                 ],
             },
             {
+                type: 'input',
+                name: 'email',
+                message: 'Please enter an email address for people to contact you with questions.'
+            },
+            {
                 type: 'checkbox',
                 name: 'license',
                 message: 'What type of open source license do you want to include?',
@@ -139,11 +139,14 @@ const promptProject = () => {
 promptProject()
     .then((answers) => {
         userData.push(answers);
-        console.log(userData);
+    })
+    .then(userData => {
+        return writeReadme(userData);
+    })
+    .catch(err => {
+        console.log(err);
     });
-// .then(readmeText => {
-//     return writeReadme(readmeText);
-// })
+
 
 //     .then(promptData => {
 //         return createPage(promptData);

@@ -1,92 +1,98 @@
 // TODO: Create a function to generate markdown for README
 // create the project info section
-const generateProjectAbout = projectData => {
+const generateAbout = projectDataArr => {
     return `
-        # ${projectData.projectName}
+    ${projectDataArr
+            .map(({ projectName, projectDescription, languages, githubLink, }) => {
+                return `
 
-        ## Table of Contents
-        * Description
-        * Built With
-        * Installation
-        * Usage
-        * Website/Links
-        * Credits
-        * Questions
+                # ${ projectName }
+
+    ## Table of Contents
+        
+        * Description 
+        * Built With 
+        * Website 
+        * Installation 
+        * Usage 
+        * Credits 
+        * Questions 
         * License
 
-        ## Description
-        ${projectData.projectDescription}
+    ## Description
+    ${ projectDescription }
 
-        ## Built With
-        ${projectData.languages}
+    ##
+    Built With
+    ${ languages.join(',') }
 
+    ##
+    Website / Links
+    ${ githubLink }
+    `;
+            })
+        }
+    `
+};
+// create the screenshot section
+const generateScreenshot = screenshotDataArr => {
+    return `
+            ${screenshotDataArr
+            .map(({ projectScreenshot, projectImageAlt }) => {
+                return ` 
+                <a href = "${projectScreenshot}" alt = "${projectImageAlt}" / >
+        `;
+            })
+            .join('')
+        }
+        `
+};
+// create the installation section
+const generateInstall = installText => {
+    return `
         ## Installation
-        ${projectData.installation}
-
-        ## Usage
-    `;
+        ${installText}
+`;
 };
-
 // create the usage section
-const generateUsage = usageArray => {
+const generateUsage = usageText => {
     return `
-    ${usageArray
-            .map(({ usageImage }) => {
-                return ` <
-        a href = "${usageImage}" > < /a>
-    `;
+            ## Usage
+            ${usageText}
+            `;
+};
+
+const generateUsageImage = usageImageArr => {
+    return `
+    ${usageImageArr
+            .map(({ usageImage, usageAltText }) => {
+                return ` 
+                <a href = "${usageImage}" alt = "${usageAltText}" / >
+        `;
             })
-            .join('')}
-    `;
+            .join('')
+        }
+    `
 };
-
-// create the links section
-const generateLinks = githubLink => {
-    return `
-    ## Website / Links
-    ${githubLink}
-    `;
-};
-
-// create the project images section
-const generateScreenshot = screenshotArray => {
-    return `
-    ${screenshotArray
-            .map(({ projectImage, projectImageAlt }) => {
-                return ` <
-        a href = "${projectImage}"
-    "alt=${projectImageAlt}" / >
-    `;
-            })
-            .join('')}
-    `;
-};
-
 // create the credits section
 const generateCredits = creditsArr => {
-    if (!confirmAddCollaborator) {
-        return `''`;
-    }
-
     return `
-    ## Credits
     ${creditsArr
             .map(({ creditName, creditGithub }) => {
                 return `
-    ${creditName}, ${creditGithub}
+    ${ creditName }, ${ creditGithub }
     `;
             })
-            .join('')}
-    `;
+            .join('')
+        }
+`
 };
-
-// create the questions section
-const generateQuestions = questionData => {
-    return `
-    ## Questions ?
-
-    If you have any questions, email me at ${questionData.email}.
-    `
+// create the questions/contact section
+const generateEmail = emailText => {
+    return ` 
+    ## Questions
+    If you have any questions, email me at ${emailText}.
+    `;
 };
 
 // create the license section
@@ -94,15 +100,16 @@ const generateQuestions = questionData => {
 // export function to create README
 module.exports = markdownTemplate => {
     // organize page data by section
-    const { about, usage, links, screenshots, credits, questions } = markdownTemplate;
+    const { about, screenshots, install, usage, usageImage, credits, questions } = markdownTemplate;
 
     return `
-
-    ${generateProjectAbout(about)}
-    ${generateUsage(usage)}
-    ${generateLinks(links)}
-    ${generateScreenshot(screenshots)}
-    ${generateCredits(credits)}
-    ${generateQuestions(questions)}
-    `;
+${generateAbout(about)}
+${generateScreenshot(screenshots)}
+${generateInstall(install)}
+${generateUsage(usage)}
+${generateUsageImage(usageImage)}
+## Credits
+${generateCredits(credits)}
+${generateEmail(questions)}
+`;
 };
