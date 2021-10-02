@@ -32,4 +32,4 @@ const writeReadme = readmeContent => {
 // // If there is no license, return an empty string
 // function renderLicenseSection(license) {}
 
-module.exports = writeReadme;
+module.exports = { writeReadme };

@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
-const writeReadme = require('./utils/generateMarkdown');
+const generateReadme = require('./readme-template');
+const { writeReadme } = require('./utils/generateMarkdown');
 const userData = [];
 // const generateMD = require('./readme-template.js');
 const promptProject = () => {
@@ -141,13 +142,14 @@ promptProject()
         userData.push(answers);
     })
     .then(userData => {
-        return writeReadme(userData);
+        return generateReadme(userData);
+    })
+    .then(writeReadmeFile => {
+        return writeReadme(writeReadmeFile);
     })
     .catch(err => {
         console.log(err);
     });
-
-
 //     .then(promptData => {
 //         return createPage(promptData);
 //     })
