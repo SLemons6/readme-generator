@@ -1,4 +1,3 @@
-// TODO: Create a function to generate markdown for README
 // create the project info section
 const generateProject = projectInfo => {
     console.log("Project", projectInfo)
