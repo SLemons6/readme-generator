@@ -1,5 +1,5 @@
 
-# asldfj;lsad
+# Readme Generator
 
 ## Table of Contents
 
@@ -13,27 +13,29 @@
     * License
 
 ## Description
-sdflja;sfj;lkasdgj;
+Readme Generator is a command-line app that uses node.js and inquirer to create a professional readme file based on user input.
 
 ## Built With
-JavaScript, HTML, CSS
+JavaScript, HTML, Node
 
 ## Website / Links
-GitHub:dgadgfg
+GitHub:https://github.com/Slemons6/readme-generator
 
-<img src="safl;af" alt="sdfjaslflsad;fj"/>
+<img src="undefined" alt="undefined"/>
+
 
 ## Installation
-asdfjl;asfj;lsadf
+To install the readme generator, simply copy the files and paste them where desired on your computer.
 
 ## Usage
-sdfjklasl;fjasd;lfldsa
-
-<img src="safljksafj" alt="undefined" / >
+To use the generator, navigate to the root directory of the app with the command prompt; then type in 'node index.js' and answer the prompts that are required for your readme.
 
 ## Credits
-adsflasfsajd;l, sd;fasdfjls
+undefined, undefined
+ 
 ## Questions
-If you have any questions, email me at sadskfjsadl.
+If you have any questions, email me at lemonsshayne6@gmail.com.
+
 ## License
-GNU AGPLv3
+None
+
